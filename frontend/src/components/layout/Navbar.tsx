@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { SynvexLogo } from '../ui/SynvexLogo';
 import { useAuth } from '../../context/AuthContext';
-import { Shield, Menu, X, ArrowRight, User } from 'lucide-react';
+import { Shield, Menu, X, ArrowRight } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const { user, logout } = useAuth();
@@ -10,12 +10,23 @@ export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#070707]/90 backdrop-blur-md border-b border-gold-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#070707]/90 backdrop-blur-md border-b border-gold-border/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Compact Navbar: 80px (within 76-84px specification) */}
         <div className="flex items-center justify-between h-20">
-          {/* Official Brand Logo */}
-          <div className="flex-shrink-0 cursor-pointer" onClick={() => navigate('/')}>
-            <SynvexLogo variant="compact" width={180} />
+          
+          {/* Circular Brand Logo with Clean Wordmark */}
+          <div
+            className="flex-shrink-0 cursor-pointer"
+            onClick={() => navigate('/')}
+          >
+            <SynvexLogo
+              variant="circle"
+              size={50}
+              showWordmark={true}
+              subtitle="CYBER FORENSICS"
+              className="py-1"
+            />
           </div>
 
           {/* Desktop Nav Links */}
@@ -37,7 +48,7 @@ export const Navbar: React.FC = () => {
             </Link>
           </div>
 
-          {/* Action CTAs */}
+          {/* Action CTAs: Vertically Centered */}
           <div className="hidden md:flex items-center space-x-4">
             {user ? (
               <div className="flex items-center space-x-3">
@@ -50,7 +61,7 @@ export const Navbar: React.FC = () => {
                 </Link>
                 <button
                   onClick={logout}
-                  className="text-xs text-text-muted hover:text-red-400 transition-colors"
+                  className="text-xs text-text-muted hover:text-red-400 transition-colors px-2 py-1"
                 >
                   Sign Out
                 </button>
@@ -78,7 +89,7 @@ export const Navbar: React.FC = () => {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-text-secondary hover:text-gold-champagne focus:outline-none p-2"
+              className="text-text-secondary hover:text-gold-champagne focus:outline-none p-2 rounded"
               aria-label="Toggle Navigation"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

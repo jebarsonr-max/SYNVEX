@@ -55,7 +55,7 @@ export const AuthPage: React.FC = () => {
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
         {/* Official Brand Logo */}
         <div className="flex justify-center mb-6 cursor-pointer" onClick={() => navigate('/')}>
-          <SynvexLogo variant="full" width={260} />
+          <SynvexLogo variant="hero" size={64} subtitle="AI CYBER-FORENSICS CONSOLE" />
         </div>
         <h2 className="text-2xl font-black text-text-main tracking-tight">
           {isRegister ? 'Create Forensic Analyst Account' : 'Sign In to Command Console'}

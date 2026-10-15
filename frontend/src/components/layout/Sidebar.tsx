@@ -42,8 +42,8 @@ export const Sidebar: React.FC = () => {
     <aside className="w-64 bg-[#0A0A0A] border-r border-gold-border flex flex-col justify-between h-screen sticky top-0 select-none">
       <div>
         {/* Brand Header */}
-        <div className="p-5 border-b border-gold-border/60 flex items-center justify-between cursor-pointer" onClick={() => navigate('/')}>
-          <SynvexLogo variant="compact" width={175} />
+        <div className="p-4 border-b border-gold-border/60 flex items-center justify-between cursor-pointer" onClick={() => navigate('/')}>
+          <SynvexLogo variant="compact" size={42} subtitle="FORENSIC CONSOLE" />
         </div>
 
         {/* Model Engine Status Card */}

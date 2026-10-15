@@ -35,9 +35,25 @@ export const LandingPage: React.FC = () => {
             
             {/* Left Column: Brand, Headline, and CTAs */}
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-              {/* Official Brand Logo */}
+              {/* Compact Circular Emblem & Brand Monogram (64-72px) */}
               <div className="flex justify-center lg:justify-start">
-                <SynvexLogo variant="hero" width={420} className="shadow-2xl" />
+                <div className="inline-flex items-center gap-3.5 p-1.5 pr-4 rounded-full bg-surface-card/80 border border-gold-border/60 backdrop-blur shadow-gold-subtle hover:border-gold-primary transition-all group">
+                  <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-full border border-gold-primary/60 bg-black flex items-center justify-center overflow-hidden shadow-gold-subtle shrink-0 group-hover:shadow-gold-glow transition-all">
+                    <img
+                      src="/images/synvex-logo.jpeg"
+                      alt="SYNVEX Emblem"
+                      className="w-full h-full object-contain scale-[1.32] -translate-y-[4%] transition-transform group-hover:scale-[1.36]"
+                    />
+                  </div>
+                  <div className="text-left">
+                    <div className="font-black text-xl sm:text-2xl gold-gradient-text tracking-widest leading-none">
+                      SYNVEX
+                    </div>
+                    <div className="text-[10px] font-mono tracking-wider text-text-muted mt-1 uppercase">
+                      DIGITAL FORENSICS &amp; IDENTITY INTEL
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Technical Eyebrow */}
@@ -264,7 +280,7 @@ export const LandingPage: React.FC = () => {
       <footer id="docs" className="bg-[#050505] border-t border-gold-border/40 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-gold-border/20">
-            <SynvexLogo variant="compact" width={160} />
+            <SynvexLogo variant="compact" size={44} subtitle="AI CYBER-FORENSICS" />
             <div className="text-xs text-text-muted text-center md:text-right font-mono">
               <p>SYNVEX AI CYBER-FORENSICS PLATFORM</p>
               <p className="mt-1">“Unmask the Signal. Expose the Evidence.”</p>
