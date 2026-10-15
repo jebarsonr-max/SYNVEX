@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-primary: #070707;
+    --bg-secondary: #0D0D0D;
+    --surface-card: #111111;
+    --surface-elevated: #171717;
+    --gold-primary: #D4AF62;
+    --gold-champagne: #F4D995;
+    --gold-muted: #8C7139;
+    --gold-border: rgba(212, 175, 98, 0.18);
+    --text-main: #F5F5F5;
+    --text-secondary: #A7A7A7;
+    --text-muted: #727272;
+  }
+
+  body {
+    background-color: #070707;
+    color: #F5F5F5;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #070707;
+}
+::-webkit-scrollbar-thumb {
+  background: #1F1F1F;
+  border-radius: 3px;
+  border: 1px solid rgba(212, 175, 98, 0.15);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF62;
+}
+
+/* Metallic Gold Gradients */
+.gold-gradient-text {
+  background: linear-gradient(135deg, #F4D995 0%, #D4AF62 50%, #8C7139 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-gradient-bg {
+  background: linear-gradient(135deg, #F4D995 0%, #D4AF62 50%, #8C7139 100%);
+}
+
+.gold-border-glow {
+  border: 1px solid rgba(212, 175, 98, 0.25);
+  box-shadow: 0 0 15px -3px rgba(212, 175, 98, 0.15);
+}
+
+.cyber-grid-bg {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(212, 175, 98, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(212, 175, 98, 0.03) 1px, transparent 1px);
+}
+
+.radial-gold-glow {
+  background: radial-gradient(circle at 50% 30%, rgba(212, 175, 98, 0.08) 0%, transparent 70%);
+}
