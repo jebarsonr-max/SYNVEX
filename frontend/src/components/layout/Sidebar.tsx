@@ -7,6 +7,7 @@ import {
   LayoutDashboard,
   ScanSearch,
   FolderArchive,
+  GitCompare,
   Globe2,
   FileText,
   Settings,
@@ -32,7 +33,8 @@ export const Sidebar: React.FC = () => {
   const navItems = [
     { name: 'Overview', to: '/console', icon: LayoutDashboard },
     { name: 'New Investigation', to: '/console/new', icon: ScanSearch },
-    { name: 'Investigations', to: '/console/investigations', icon: FolderArchive },
+    { name: 'Evidence Vault', to: '/console/investigations', icon: FolderArchive },
+    { name: 'Comparison Lab', to: '/console/compare', icon: GitCompare },
     { name: 'Threat Intelligence', to: '/console/threats', icon: Globe2 },
     { name: 'Reports', to: '/console/reports', icon: FileText },
     { name: 'Settings', to: '/console/settings', icon: Settings },

@@ -119,6 +119,76 @@ export const api = {
     getReportPdfUrl: (id: string): string => `${API_BASE}/scans/${id}/report.pdf`,
     getReportJsonUrl: (id: string): string => `${API_BASE}/scans/${id}/report.json`,
     getReportHtmlUrl: (id: string): string => `${API_BASE}/scans/${id}/report.html`,
+
+    // Innovative Forensic Features
+    getGraph: async (id: string): Promise<any> => {
+      const res = await fetch(`${API_BASE}/scans/${id}/graph`, {
+        headers: getAuthHeaders(),
+      });
+      if (!res.ok) throw new Error('Failed to load evidence relationship graph');
+      return res.json();
+    },
+
+    getGlobalGraph: async (): Promise<any> => {
+      const res = await fetch(`${API_BASE}/investigations/graph`, {
+        headers: getAuthHeaders(),
+      });
+      if (!res.ok) throw new Error('Failed to load multi-case evidence graph');
+      return res.json();
+    },
+
+    queryCopilot: async (id: string, question: string): Promise<any> => {
+      const res = await fetch(`${API_BASE}/scans/${id}/copilot/query`, {
+        method: 'POST',
+        headers: { ...getAuthHeaders(), 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question }),
+      });
+      if (!res.ok) throw new Error('Copilot inquiry failed');
+      return res.json();
+    },
+
+    getCustody: async (id: string): Promise<any> => {
+      const res = await fetch(`${API_BASE}/scans/${id}/custody`, {
+        headers: getAuthHeaders(),
+      });
+      if (!res.ok) throw new Error('Failed to load digital evidence chain of custody');
+      return res.json();
+    },
+
+    verifyCustody: async (id: string): Promise<any> => {
+      const res = await fetch(`${API_BASE}/scans/${id}/custody/verify`, {
+        method: 'POST',
+        headers: getAuthHeaders(),
+      });
+      if (!res.ok) throw new Error('Integrity verification failed');
+      return res.json();
+    },
+
+    getTimeline: async (id: string): Promise<any> => {
+      const res = await fetch(`${API_BASE}/scans/${id}/timeline`, {
+        headers: getAuthHeaders(),
+      });
+      if (!res.ok) throw new Error('Failed to reconstruct forensic timeline');
+      return res.json();
+    },
+
+    getCorrelations: async (id: string): Promise<any> => {
+      const res = await fetch(`${API_BASE}/scans/${id}/correlations`, {
+        headers: getAuthHeaders(),
+      });
+      if (!res.ok) throw new Error('Failed to load cross-modal correlations');
+      return res.json();
+    },
+
+    compare: async (scan_id_a: string, scan_id_b: string): Promise<any> => {
+      const res = await fetch(`${API_BASE}/scans/compare`, {
+        method: 'POST',
+        headers: { ...getAuthHeaders(), 'Content-Type': 'application/json' },
+        body: JSON.stringify({ scan_id_a, scan_id_b }),
+      });
+      if (!res.ok) throw new Error('Failed to execute investigation comparison');
+      return res.json();
+    },
   },
 
   dashboard: {

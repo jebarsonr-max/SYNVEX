@@ -39,6 +39,8 @@ class Investigation(Base):
     findings = relationship("Finding", back_populates="investigation", cascade="all, delete-orphan")
     analysis_runs = relationship("AnalysisRun", back_populates="investigation", cascade="all, delete-orphan")
     report_artifacts = relationship("ReportArtifact", back_populates="investigation", cascade="all, delete-orphan")
+    evidence_items = relationship("EvidenceItem", back_populates="investigation", cascade="all, delete-orphan")
+    custody_logs = relationship("CustodyLog", back_populates="investigation", cascade="all, delete-orphan")
 
 class Finding(Base):
     __tablename__ = "findings"
@@ -109,3 +111,41 @@ class ThreatIncident(Base):
     is_demo = Column(Boolean, default=True, nullable=False)
     incident_count = Column(Integer, default=1, nullable=False)
     details = Column(Text, nullable=True)
+ 
+class EvidenceItem(Base):
+    __tablename__ = "evidence_items"
+
+    id = Column(String(36), primary_key=True, default=generate_uuid)
+    investigation_id = Column(String(36), ForeignKey("investigations.id", ondelete="CASCADE"), nullable=False, index=True)
+    evidence_number = Column(String(50), unique=True, nullable=False, index=True)  # EVD-2026-XXXX
+    original_filename = Column(String(255), nullable=True)
+    file_sha256 = Column(String(64), nullable=False, index=True)
+    file_size_bytes = Column(Integer, default=0, nullable=False)
+    mime_type = Column(String(100), default="application/octet-stream", nullable=False)
+    storage_path = Column(String(255), nullable=True)
+    integrity_status = Column(String(50), default="VERIFIED_AT_INGESTION", nullable=False)  # VERIFIED_AT_INGESTION, MATCH_VERIFIED, INTEGRITY_COMPROMISED
+    ingested_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    last_verified_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    metadata_json = Column(JSON, nullable=True)
+
+    investigation = relationship("Investigation", back_populates="evidence_items")
+    custody_logs = relationship("CustodyLog", back_populates="evidence_item", cascade="all, delete-orphan", order_by="CustodyLog.timestamp.asc()")
+
+class CustodyLog(Base):
+    __tablename__ = "custody_logs"
+
+    id = Column(String(36), primary_key=True, default=generate_uuid)
+    evidence_id = Column(String(36), ForeignKey("evidence_items.id", ondelete="CASCADE"), nullable=True, index=True)
+    investigation_id = Column(String(36), ForeignKey("investigations.id", ondelete="CASCADE"), nullable=False, index=True)
+    action = Column(String(50), nullable=False)  # INGESTED, ANALYZED, VERIFIED_HASH, VIEWED_DOSSIER, EXPORTED_PDF, EXPORTED_JSON
+    actor_id = Column(String(36), nullable=False)
+    actor_name = Column(String(255), nullable=False)
+    actor_email = Column(String(255), nullable=False)
+    timestamp = Column(DateTime, default=datetime.utcnow, nullable=False, index=True)
+    action_details = Column(JSON, nullable=True)
+    hash_at_action = Column(String(64), nullable=False)
+    tamper_check_result = Column(String(50), default="PASSED", nullable=False)  # PASSED, MISMATCH
+
+    investigation = relationship("Investigation", back_populates="custody_logs")
+    evidence_item = relationship("EvidenceItem", back_populates="custody_logs")
+

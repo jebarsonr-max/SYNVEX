@@ -10,6 +10,7 @@ import { InvestigationDetailPage } from './pages/InvestigationDetailPage';
 import { ThreatIntelligencePage } from './pages/ThreatIntelligencePage';
 import { ReportsPage } from './pages/ReportsPage';
 import { SettingsPage } from './pages/SettingsPage';
+import { ComparisonLabPage } from './pages/ComparisonLabPage';
 import { useAuth } from './context/AuthContext';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -44,6 +45,7 @@ export const App: React.FC = () => {
         <Route path="new" element={<NewInvestigationPage />} />
         <Route path="investigations" element={<InvestigationsListPage />} />
         <Route path="investigations/:id" element={<InvestigationDetailPage />} />
+        <Route path="compare" element={<ComparisonLabPage />} />
         <Route path="threats" element={<ThreatIntelligencePage />} />
         <Route path="reports" element={<ReportsPage />} />
         <Route path="settings" element={<SettingsPage />} />

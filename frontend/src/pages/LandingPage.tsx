@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Navbar } from '../components/layout/Navbar';
 import { SynvexLogo } from '../components/ui/SynvexLogo';
-import { SynvexBackground } from '../components/ui/SynvexBackground';
 import { DigitalShieldHero } from '../components/forensic/DigitalShieldHero';
 import {
   ShieldAlert,
@@ -23,11 +22,14 @@ export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <SynvexBackground variant="landing" showRings={true}>
+    <div className="min-h-screen bg-[#070707] text-[#F5F5F5] selection:bg-gold-primary/20 selection:text-gold-champagne">
       <Navbar />
 
       {/* Signature Hero Section */}
-      <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+      <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden cyber-grid-bg">
+        {/* Radial ambient glow */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[400px] radial-gold-glow pointer-events-none" />
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
@@ -67,7 +69,7 @@ export const LandingPage: React.FC = () => {
 
               {/* Supporting Statement */}
               <p className="text-base sm:text-lg text-text-secondary max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                AI-powered deepfake detection, digital identity forensics, and explainable cyber-fraud intelligence.
+                Investigate suspicious digital content with explainable AI, structural forensic evidence, and transparent risk assessment. Unmask AI-generated media, trace document alterations, and neutralize extortion frauds.
               </p>
 
               {/* Action Buttons */}
@@ -81,13 +83,13 @@ export const LandingPage: React.FC = () => {
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </Link>
 
-                <a
-                  href="#platform"
+                <Link
+                  to="/console/threats"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg bg-surface-card border border-gold-border text-gold-champagne font-semibold text-base hover:border-gold-primary transition-all"
                 >
                   <Globe2 className="w-5 h-5 text-gold-primary" />
-                  <span>Explore the Platform</span>
-                </a>
+                  <span>Explore Threat Map</span>
+                </Link>
               </div>
 
               {/* Trust Badges */}
@@ -294,6 +296,6 @@ export const LandingPage: React.FC = () => {
           </div>
         </div>
       </footer>
-    </SynvexBackground>
+    </div>
   );
 };

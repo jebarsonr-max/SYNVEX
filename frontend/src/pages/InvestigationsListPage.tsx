@@ -10,7 +10,8 @@ import {
   Eye,
   FileCheck2,
   ShieldAlert,
-  ArrowRight
+  ArrowRight,
+  GitCompare
 } from 'lucide-react';
 
 export const InvestigationsListPage: React.FC = () => {
@@ -173,6 +174,13 @@ export const InvestigationsListPage: React.FC = () => {
                           className="p-1 text-text-secondary hover:text-gold-champagne transition-colors"
                         >
                           <Eye className="w-4 h-4" />
+                        </Link>
+                        <Link
+                          to={`/console/compare?a=${scan.id}`}
+                          title="Compare in Lab"
+                          className="p-1 text-text-secondary hover:text-gold-champagne transition-colors"
+                        >
+                          <GitCompare className="w-4 h-4" />
                         </Link>
                         <a
                           href={api.scans.getReportPdfUrl(scan.id)}

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { SynvexLogo } from '../components/ui/SynvexLogo';
-import { SynvexBackground } from '../components/ui/SynvexBackground';
 import { useAuth } from '../context/AuthContext';
 import { Lock, Mail, User, ArrowRight, ShieldCheck, AlertCircle } from 'lucide-react';
 
@@ -52,10 +51,8 @@ export const AuthPage: React.FC = () => {
   };
 
   return (
-    <SynvexBackground variant="auth">
-      <div className="flex-1 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-
+    <div className="min-h-screen bg-[#070707] flex flex-col justify-center py-12 sm:px-6 lg:px-8 cyber-grid-bg">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
         {/* Official Brand Logo */}
         <div className="flex justify-center mb-6 cursor-pointer" onClick={() => navigate('/')}>
           <SynvexLogo variant="hero" size={64} subtitle="AI CYBER-FORENSICS CONSOLE" />
@@ -183,6 +180,5 @@ export const AuthPage: React.FC = () => {
         </div>
       </div>
     </div>
-  </SynvexBackground>
   );
 };

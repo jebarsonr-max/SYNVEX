@@ -138,3 +138,140 @@ class DashboardTrendsResponse(BaseModel):
     risk_distribution: Dict[str, int]
     activity_timeline: List[TrendDataPoint]
     category_distribution: Dict[str, int]
+
+# Evidence & Custody Schemas
+class CustodyLogResponse(BaseModel):
+    id: str
+    action: str
+    actor_id: str
+    actor_name: str
+    actor_email: str
+    timestamp: datetime
+    action_details: Optional[Dict[str, Any]] = None
+    hash_at_action: str
+    tamper_check_result: str
+
+    class Config:
+        from_attributes = True
+
+class EvidenceItemResponse(BaseModel):
+    id: str
+    investigation_id: str
+    evidence_number: str
+    original_filename: Optional[str] = None
+    file_sha256: str
+    file_size_bytes: int
+    mime_type: str
+    integrity_status: str
+    ingested_at: datetime
+    last_verified_at: datetime
+    metadata_json: Optional[Dict[str, Any]] = None
+    custody_logs: List[CustodyLogResponse] = []
+
+    class Config:
+        from_attributes = True
+
+class CustodyVerificationResponse(BaseModel):
+    evidence_number: str
+    file_sha256: str
+    status: str  # MATCH_VERIFIED, INTEGRITY_COMPROMISED
+    verified_at: datetime
+    audit_event_id: str
+    message: str
+
+# Evidence Relationship Graph Schemas
+class GraphNode(BaseModel):
+    id: str
+    label: str
+    type: str  # target, finding, analyzer, entity, threat_category
+    category: Optional[str] = None
+    severity: Optional[str] = None
+    score_contribution: Optional[float] = None
+    details: Optional[Dict[str, Any]] = None
+
+class GraphEdge(BaseModel):
+    id: str
+    source: str
+    target: str
+    label: str
+    relation_type: str  # verified_finding, analyzed_by, detected_entity, associated_threat, cross_correlated
+    is_verified: bool = True
+    weight: float = 1.0
+
+class EvidenceGraphResponse(BaseModel):
+    investigation_id: Optional[str] = None
+    nodes: List[GraphNode]
+    edges: List[GraphEdge]
+    total_nodes: int
+    total_edges: int
+
+# Forensic Copilot Schemas
+class CopilotQueryRequest(BaseModel):
+    question: str
+
+class CopilotCitation(BaseModel):
+    finding_id: Optional[str] = None
+    title: str
+    severity: str
+    analyzer: str
+    reference_data: Optional[Dict[str, Any]] = None
+
+class CopilotQueryResponse(BaseModel):
+    question: str
+    answer: str
+    citations: List[CopilotCitation] = []
+    confidence_assessment: Dict[str, Any]
+    suggested_followups: List[str] = []
+    llm_source: str
+
+# Forensic Timeline Schemas
+class TimelineEvent(BaseModel):
+    id: str
+    timestamp: datetime
+    event_type: str  # CAPTURE_OBSERVED, INGESTION_OBSERVED, ANALYSIS_EXECUTION, FINDING_DETECTED, AUDIT_ACTION
+    is_observed: bool  # True if strictly observed timestamp from EXIF/system, False if inferred
+    source: str
+    summary: str
+    severity: Optional[str] = None
+    details: Optional[Dict[str, Any]] = None
+    anomaly_detected: Optional[str] = None
+
+class TimelineReconstructionResponse(BaseModel):
+    investigation_id: str
+    canonical_timezone: str = "UTC"
+    events: List[TimelineEvent]
+    total_events: int
+    observed_events_count: int
+    inferred_events_count: int
+    anomalies_detected: List[str] = []
+
+# Cross-Modal Evidence Correlation Schemas
+class CorrelationMatch(BaseModel):
+    target_investigation_id: str
+    target_filename: str
+    match_type: str  # EXACT_HASH_MATCH, SHARED_ENTITY, SHARED_THREAT_PATTERN, SIMILAR_SOFTWARE_SIGNATURE
+    attribute_name: str
+    attribute_value: str
+    confidence: float
+    explanation: str
+
+class InvestigationCorrelationResponse(BaseModel):
+    investigation_id: str
+    correlations: List[CorrelationMatch]
+    total_matches: int
+
+# Comparison Lab Schemas
+class InvestigationCompareRequest(BaseModel):
+    scan_id_a: str
+    scan_id_b: str
+
+class InvestigationCompareResponse(BaseModel):
+    scan_a: Dict[str, Any]
+    scan_b: Dict[str, Any]
+    score_delta: float
+    risk_level_transition: str
+    findings_delta: Dict[str, Any]
+    entities_delta: Dict[str, Any]
+    metadata_delta: Dict[str, Any]
+    model_predictions_delta: Dict[str, Any]
+

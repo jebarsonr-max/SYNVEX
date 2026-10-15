@@ -3,7 +3,6 @@ import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { useAuth } from '../../context/AuthContext';
 import { SynvexLogo } from '../ui/SynvexLogo';
-import { BackgroundEffects } from '../ui/BackgroundEffects';
 import { Menu, X, PlusCircle, ShieldCheck } from 'lucide-react';
 
 export const DashboardLayout: React.FC = () => {
@@ -18,29 +17,15 @@ export const DashboardLayout: React.FC = () => {
     if (path === '/console') return 'Security Operations Command';
     if (path.includes('/console/new')) return 'Forensic Evidence Scanner';
     if (path.includes('/console/investigations')) return 'Evidence Vault & Investigation Log';
+    if (path.includes('/console/compare')) return 'Investigation Comparison Lab';
     if (path.includes('/console/threats')) return 'India Cyber-Hotspot Intelligence';
     if (path.includes('/console/reports')) return 'Official Investigation Dossiers';
     if (path.includes('/console/settings')) return 'Platform Configurations & Verification';
     return 'Console';
   };
 
-  // Derive subtle background variant to optimize focus per workflow
-  const getBackgroundVariant = () => {
-    const path = location.pathname;
-    if (path.includes('/console/threats')) return 'map';
-    if (path.includes('/console/new')) return 'scanner';
-    if (path.includes('/console/investigations/')) return 'results';
-    return 'dashboard';
-  };
-
   return (
-    <div className="relative flex h-screen bg-[#070707] text-[#F5F5F5] overflow-hidden">
-      {/* Background Graphic Layer */}
-      <BackgroundEffects
-        variant={getBackgroundVariant()}
-        showParticles={getBackgroundVariant() !== 'map'}
-      />
-
+    <div className="flex h-screen bg-[#070707] text-[#F5F5F5] overflow-hidden">
       {/* Desktop Sidebar */}
       <div className="hidden lg:block">
         <Sidebar />
