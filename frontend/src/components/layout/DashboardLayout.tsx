@@ -3,6 +3,7 @@ import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { useAuth } from '../../context/AuthContext';
 import { SynvexLogo } from '../ui/SynvexLogo';
+import { BackgroundEffects } from '../ui/BackgroundEffects';
 import { Menu, X, PlusCircle, ShieldCheck } from 'lucide-react';
 
 export const DashboardLayout: React.FC = () => {
@@ -23,8 +24,23 @@ export const DashboardLayout: React.FC = () => {
     return 'Console';
   };
 
+  // Derive subtle background variant to optimize focus per workflow
+  const getBackgroundVariant = () => {
+    const path = location.pathname;
+    if (path.includes('/console/threats')) return 'map';
+    if (path.includes('/console/new')) return 'scanner';
+    if (path.includes('/console/investigations/')) return 'results';
+    return 'dashboard';
+  };
+
   return (
-    <div className="flex h-screen bg-[#070707] text-[#F5F5F5] overflow-hidden">
+    <div className="relative flex h-screen bg-[#070707] text-[#F5F5F5] overflow-hidden">
+      {/* Background Graphic Layer */}
+      <BackgroundEffects
+        variant={getBackgroundVariant()}
+        showParticles={getBackgroundVariant() !== 'map'}
+      />
+
       {/* Desktop Sidebar */}
       <div className="hidden lg:block">
         <Sidebar />
