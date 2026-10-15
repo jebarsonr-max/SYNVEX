@@ -5,66 +5,77 @@
 @layer base {
   :root {
     --bg-primary: #070707;
-    --bg-secondary: #0D0D0D;
-    --surface-card: #111111;
-    --surface-elevated: #171717;
+    --bg-secondary: #0A0A0A;
+    --surface-card: #121212;
+    --surface-elevated: #181818;
+    --surface-hover: #1F1F1F;
     --gold-primary: #D4AF62;
     --gold-champagne: #F4D995;
     --gold-muted: #8C7139;
     --gold-border: rgba(212, 175, 98, 0.18);
-    --text-main: #F5F5F5;
-    --text-secondary: #A7A7A7;
-    --text-muted: #727272;
+    --text-main: #FFFFFF;
+    --text-secondary: #A1A1AA;
+    --text-muted: #71717A;
   }
 
   body {
     background-color: #070707;
-    color: #F5F5F5;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #F4F4F5;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Accessible focus indicators */
+  *:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px #D4AF62, 0 0 0 4px rgba(7, 7, 7, 0.95);
   }
 }
 
-/* Custom scrollbars */
+/* Custom minimal scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: #070707;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1F1F1F;
-  border-radius: 3px;
-  border: 1px solid rgba(212, 175, 98, 0.15);
+  background: #27272A;
+  border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #D4AF62;
 }
 
-/* Metallic Gold Gradients */
+/* Typography & Metallic Accents */
 .gold-gradient-text {
-  background: linear-gradient(135deg, #F4D995 0%, #D4AF62 50%, #8C7139 100%);
+  background: linear-gradient(135deg, #F4D995 0%, #D4AF62 50%, #B89243 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .gold-gradient-bg {
-  background: linear-gradient(135deg, #F4D995 0%, #D4AF62 50%, #8C7139 100%);
+  background: linear-gradient(135deg, #F4D995 0%, #D4AF62 100%);
 }
 
-.gold-border-glow {
-  border: 1px solid rgba(212, 175, 98, 0.25);
-  box-shadow: 0 0 15px -3px rgba(212, 175, 98, 0.15);
+.subtle-border {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gold-border {
+  border: 1px solid rgba(212, 175, 98, 0.22);
 }
 
 .cyber-grid-bg {
-  background-size: 32px 32px;
+  background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(212, 175, 98, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(212, 175, 98, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
 }
 
 .radial-gold-glow {
-  background: radial-gradient(circle at 50% 30%, rgba(212, 175, 98, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle at 50% 20%, rgba(212, 175, 98, 0.06) 0%, transparent 60%);
 }
